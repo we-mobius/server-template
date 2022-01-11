@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "server-template",
   "version": "0.1.0",
-  "description": "📋 Template for mobius flavor web project.",
+  "description": "📋 Template for mobius flavor server project.",
   "type": "module",
   "typings": "./typings/main.d.ts",
   "types": "./typings/main.d.ts",
@@ -81,7 +81,7 @@
   },
   "keywords": [
     "mobius",
-    "web"
+    "server"
   ],
   "directories": {
     "doc": "./docs",
@@ -103,7 +103,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/we-mobius/template.git"
+    "url": "git+https://github.com/we-mobius/server-template.git"
   },
   "author": {
     "name": "kongxiangyan",
@@ -112,9 +112,9 @@
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/we-mobius/template/issues"
+    "url": "https://github.com/we-mobius/server-template/issues"
   },
-  "homepage": "https://github.com/we-mobius/template#readme",
+  "homepage": "https://github.com/we-mobius/server-template#readme",
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-transform-runtime": "^7.10.5",
