@@ -1,8 +1,8 @@
 import { rootResolvePath } from '../scripts/utils.js'
+import { getMobiusConfig } from './mobius.config.js'
 import { getProductionLoaders } from './loaders.config.js'
 import { getProductionPlugins } from './plugins.config.js'
 
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 
@@ -15,25 +15,8 @@ const PATHS = {
 
 const reusedConfigs = {
   mode: 'production',
-  output: {
-  },
   module: {
     rules: [
-      {
-        test: /\.css$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              // 添加在 CSS 文件中引用的其它资源路径的前面，可用于配置 CDN，不如 file-loader 设置的 publicPath 优先
-              // publicPath: 'https://cdn.cigaret.world/'
-            }
-          },
-          'css-loader',
-          'postcss-loader'
-        ],
-        sideEffects: true
-      },
       {
         oneOf: [...getProductionLoaders()]
       }
@@ -41,10 +24,6 @@ const reusedConfigs = {
   },
   plugins: [
     ...getProductionPlugins(),
-    new MiniCssExtractPlugin({
-      filename: 'styles/[name].[contenthash:10].css',
-      chunkFilename: 'styles/[id].[contenthash:10].css'
-    }),
     // CopyPlugin configurations: https://github.com/webpack-contrib/copy-webpack-plugin
     new CopyPlugin({
       patterns: [
@@ -57,8 +36,18 @@ const reusedConfigs = {
           toType: 'dir'
         },
         {
-          from: './src/statics/styles/fonts/',
-          to: path.resolve(PATHS.output, './statics/styles/fonts/'),
+          from: './src/statics/fonts/',
+          to: path.resolve(PATHS.output, './statics/fonts/'),
+          toType: 'dir'
+        },
+        {
+          from: './src/statics/images/',
+          to: path.resolve(PATHS.output, './statics/images/'),
+          toType: 'dir'
+        },
+        {
+          from: './src/statics/styles/',
+          to: path.resolve(PATHS.output, './statics/styles/'),
           toType: 'dir'
         }
       ]
@@ -66,6 +55,9 @@ const reusedConfigs = {
   ],
   optimization: {
     minimize: true,
+    providedExports: true,
+    usedExports: true,
+    sideEffects: true,
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -73,7 +65,7 @@ const reusedConfigs = {
           sourceMap: true,
           compress: {
             drop_debugger: true,
-            drop_console: true
+            drop_console: false
           },
           format: {
             comments: false
@@ -86,17 +78,39 @@ const reusedConfigs = {
   // devtool: 'hidden-nosources-source-map'
 }
 
+const webConfig = { ...reusedConfigs }
+const serverConfig = { ...reusedConfigs }
+serverConfig.plugins = [serverConfig.plugins[0], ...serverConfig.plugins.slice(3)]
+
 export const getProductionConfig = () => ([
   {
-    // NOTE: entry sort matters style cascading
+    target: 'web',
+    // node: {
+    //   global: true
+    // },
     entry: {
+      // NOTE: entry sort matters style cascading
       static: './src/static.ts',
       index: './src/index.ts'
     },
+    ...webConfig
+  },
+  {
+    target: 'node',
+    entry: {
+      main: './src/main.ts'
+    },
     output: {
-      filename: '[name].js',
+      filename: '[name].cjs',
+      // @refer: https://webpack.js.org/configuration/output/#outputlibrarytarget
+      // @refer: https://webpack.js.org/configuration/output/#outputlibrarytype
+      // libraryTarget: 'umd',
+      library: {
+        name: 'MobiusServer',
+        type: 'commonjs2'
+      },
       path: PATHS.output
     },
-    ...reusedConfigs
+    ...serverConfig
   }
 ])

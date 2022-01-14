@@ -16,14 +16,6 @@ const reusedConfigs = {
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
-      },
-      {
         oneOf: [...getDevelopmentLoaders()]
       }
     ]
@@ -45,18 +37,23 @@ const reusedConfigs = {
     })
   ],
   // devtool: 'eval-source-map',
-  devtool: 'source-map'
+  devtool: 'source-map',
+  // ref: https://webpack.js.org/configuration/dev-server/
   // in ./scripts/dev.js
-  // devServer: {}
+  devServer: {}
 }
 
-export const getDevelopmentConfig = () => ([
-  {
+const webConfig = { ...reusedConfigs }
+
+export const getDevelopmentConfig = () => ([{
+  target: 'web',
+  // node: {
+  //   global: true
+  // },
+  entry: {
     // NOTE: entry sort matters style cascading
-    entry: {
-      static: './src/static.ts',
-      index: './src/index.ts'
-    },
-    ...reusedConfigs
-  }
-])
+    static: './src/static.ts',
+    index: './src/index.ts'
+  },
+  ...webConfig
+}])

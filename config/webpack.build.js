@@ -16,14 +16,6 @@ const reusedConfigs = {
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
-      },
-      {
         oneOf: [...getBuildLoaders()]
       }
     ]
@@ -50,13 +42,16 @@ const reusedConfigs = {
   devServer: {}
 }
 
-export const getBuildConfig = () => ([
-  {
+const webConfig = { ...reusedConfigs }
+export const getBuildConfig = () => ([{
+  target: 'web',
+  // node: {
+  //   global: true
+  // },
+  entry: {
     // NOTE: entry sort matters style cascading
-    entry: {
-      static: './src/static.ts',
-      index: './src/index.ts'
-    },
-    ...reusedConfigs
-  }
-])
+    static: './src/static.ts',
+    index: './src/index.ts'
+  },
+  ...webConfig
+}])

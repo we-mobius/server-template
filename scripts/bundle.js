@@ -180,7 +180,6 @@ const copy = () => {
       rootResolvePath(resolvePathInDes('statics/images/beian.png'))
     )
     console.log('【copy】 complete!')
-    // TODO: 清除 base.js & addons.js & mobius.js
     resolve()
   })
 }

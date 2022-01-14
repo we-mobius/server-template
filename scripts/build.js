@@ -15,9 +15,14 @@ const empty = () => {
   })
 }
 
-const pack = () => {
-  return new Promise((resolve) => {
-    webpack(getWebpackConfig({ mode: BUILD_MODE }))
+const webpackConfig = getWebpackConfig({ mode: BUILD_MODE })
+console.info('【webpackConfig】' + JSON.stringify(webpackConfig))
+const [webConfig] = webpackConfig
+
+const packRenderer = () => {
+  return new Promise((resolve, reject) => {
+    console.log('【pack web】 start...')
+    webpack(webConfig)
       .run((err, stats) => {
         // @see https://webpack.js.org/api/node/#error-handling
         if (err) {
@@ -46,6 +51,8 @@ const pack = () => {
           })
         }
 
+        console.log('【pack web】 complete!')
+
         resolve()
       })
   })
@@ -53,6 +60,7 @@ const pack = () => {
 
 const copy = () => {
   return new Promise((resolve) => {
+    console.log('【copy】 start...')
     copyFileSync(
       rootResolvePath('src/statics/images/thoughts-daily.png'),
       rootResolvePath(resolvePathInDes('statics/images/thoughts-daily.png'))
@@ -61,13 +69,14 @@ const copy = () => {
       rootResolvePath('src/statics/images/beian.png'),
       rootResolvePath(resolvePathInDes('statics/images/beian.png'))
     )
+    console.log('【copy】 complete!')
     resolve()
   })
 }
 
 // execute
 empty()
-  .then(() => pack())
+  .then(() => Promise.all([packRenderer()]))
   .then(() => copy())
   .then(() => {
     console.log(`${BUILD_MODE} Build Complete!!!`)
