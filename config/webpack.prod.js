@@ -83,18 +83,18 @@ const serverConfig = { ...reusedConfigs }
 serverConfig.plugins = [serverConfig.plugins[0], ...serverConfig.plugins.slice(3)]
 
 export const getProductionConfig = () => ([
-  {
-    target: 'web',
-    // node: {
-    //   global: true
-    // },
-    entry: {
-      // NOTE: entry sort matters style cascading
-      static: './src/static.ts',
-      index: './src/index.ts'
-    },
-    ...webConfig
-  },
+  // {
+  //   target: 'web',
+  //   // node: {
+  //   //   global: true
+  //   // },
+  //   entry: {
+  //     // NOTE: entry sort matters style cascading
+  //     static: './src/static.ts',
+  //     index: './src/index.ts'
+  //   },
+  //   ...webConfig
+  // },
   {
     target: 'node',
     entry: {

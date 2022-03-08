@@ -38,6 +38,9 @@
       "MobiusUtils": [
         "./src/ts/libs/mobius-utils.ts"
       ],
+      "MobiusServer": [
+        "./src/ts/libs/mobius-server.ts"
+      ],
       "MobiusGUI": [
         "./src/ts/libs/mobius-gui.ts"
       ],
@@ -52,6 +55,9 @@
       ],
       "Interfaces/*": [
         "src/ts/interfaces/*"
+      ],
+      "Server/*": [
+        "src/ts/server/*"
       ],
       "Libs/*": [
         "./src/ts/libs/*"

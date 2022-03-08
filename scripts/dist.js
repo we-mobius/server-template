@@ -17,12 +17,14 @@ const empty = () => {
 
 const webpackConfig = getWebpackConfig({ mode: BUILD_MODE })
 // console.info('【webpackConfig】' + JSON.stringify(webpackConfig))
-const [webConfig, serverConfig] = webpackConfig
+// const [webConfig, serverConfig] = webpackConfig
+const [serverConfig] = webpackConfig
 
 const packRenderer = () => {
   return new Promise((resolve, reject) => {
     console.log('【pack web】 start...')
-    webpack([webConfig, serverConfig])
+    // webpack([webConfig, serverConfig])
+    webpack([serverConfig])
       .run((err, stats) => {
         // @see https://webpack.js.org/api/node/#error-handling
         if (err) {
