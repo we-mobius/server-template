@@ -178,7 +178,8 @@
   ],
   "sideEffects": [
     "**/*.css",
-    "./statics/**"
+    "./statics/**",
+    "./src/ts/server/serve/**/*.ts"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
