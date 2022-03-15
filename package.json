@@ -179,7 +179,8 @@
   "sideEffects": [
     "**/*.css",
     "./statics/**",
-    "./src/ts/server/serve/**/*.ts"
+    "./src/ts/server/**/*.ts",
+    "./src/ts/services-free/**/*.ts"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
@@ -187,6 +188,8 @@
   },
   "dependencies": {
     "apollo-server": "^3.6.3",
-    "graphql": "^16.3.0"
+    "graphql": "^16.3.0",
+    "node-fetch": "^3.2.3",
+    "undici": "^4.15.1"
   }
 }

@@ -9,4 +9,4 @@ export const mainClientDriverInstance = clientDriverScopeManager.scope('main', {
   isAutoStart: false,
   appRouteDriver: appRouteDriverInstance
 })
-export { appRouteDriverInstance as clientUsedAppRouteDriverInstance }
+export const clientUsedAppRouteDriverInstance = appRouteDriverInstance

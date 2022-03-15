@@ -12,7 +12,11 @@ const typeDefs = gql`
   type Author {
     name: String
   }
+  type Hello {
+    world: String
+  }
   type Query {
+    hello: Hello
     books: [Book]
   }
 `
@@ -32,6 +36,9 @@ const books = [
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
+    hello: () => ({
+      world: () => 'Hello world! from /v1/graphql handler!'
+    }),
     books: () => books
   }
 }

@@ -54,7 +54,7 @@ const reusedConfigs = {
     })
   ],
   optimization: {
-    minimize: true,
+    minimize: false,
     providedExports: true,
     usedExports: true,
     sideEffects: true,

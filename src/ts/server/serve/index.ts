@@ -1,1 +1,1 @@
-export * as v1 from './v1/index'
+export * from './v1/index'

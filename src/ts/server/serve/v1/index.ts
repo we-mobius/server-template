@@ -1,1 +1,2 @@
-export * as graphql from './graphql/index'
+export * from './normal/index'
+export * from './graphql/index'
