@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server'
 import { useApolloServerDriver } from 'MobiusServer'
+import { getPrismaClient } from 'FreeServices/prisma'
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -14,6 +15,7 @@ const typeDefs = gql`
   }
   type Hello {
     world: String
+    links: String
   }
   type Query {
     hello: Hello
@@ -37,7 +39,11 @@ const books = [
 const resolvers = {
   Query: {
     hello: () => ({
-      world: () => 'Hello world! from /v1/graphql handler!'
+      world: () => 'Hello world! from /v1/graphql handler!',
+      links: () => {
+        const prismaClient = getPrismaClient()
+        return prismaClient.user.findMany().then(links => JSON.stringify({ links }))
+      }
     }),
     books: () => books
   }
