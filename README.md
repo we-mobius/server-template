@@ -68,6 +68,7 @@ All the relative documentations of detail, pls check `./docs`，which contains:
 
 - [Mobius Utils](https://github.com/we-mobius/mobius-utils) 🤞
 - [Mobius Services](https://github.com/we-mobius/mobius-services) 🤞
+- [Mobius Server](https://github.com/we-mobius/mobius-server) 🤞
 - somthing else...
 
 ## Author
